@@ -5,6 +5,7 @@
 # include <iostream>
 # include <vector>
 # include <algorithm>
+# include <numeric>
 # include <exception>
 
 class	Span
@@ -20,6 +21,10 @@ class	Span
 		{
 			const char* what() const throw();
 		};
+		class	NoSpaceLeftException : public std::exception
+		{
+			const char* what() const throw();
+		};
 	public:
 		Span();
 		Span(const unsigned int N); 
@@ -29,6 +34,16 @@ class	Span
 		void			addNumber(int i);
 		unsigned int	longestSpan();
 		unsigned int	shortestSpan();
+		template <typename Iter>
+		void			addNumber(Iter begin, Iter end)
+		{
+			std::ptrdiff_t	spaceLeft;
+
+			spaceLeft = _N - _v.size();
+			if (std::distance(begin, end) > spaceLeft)
+				throw NoSpaceLeftException();
+			_v.insert(_v.end(), begin, end);
+		}
 };
 
 #endif

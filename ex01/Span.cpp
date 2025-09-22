@@ -16,7 +16,7 @@ Span::Span(const unsigned int N) : _N(N)
 
 Span::Span(const Span& src) : _N(src._N)
 {
-	for (int i = 0; i < _N; ++i)
+	for (unsigned int i = 0; i < _N; ++i)
 		this->_v.push_back(src._v[i]);
 	*this = src;
 }
@@ -26,10 +26,10 @@ Span& Span::operator=(const Span& rhs)
 	if (this != &rhs)
 	{
 		this->_N = rhs._N;
-		for (int i = 0; i < _N; ++i)
+		for (unsigned int i = 0; i < _N; ++i)
 			_v.push_back(rhs._v[i]);
-		return *this;
 	}
+	return *this;
 }
 
 Span::~Span() {}
@@ -44,8 +44,16 @@ void	Span::addNumber(int i)
 
 unsigned int	Span::shortestSpan()
 {
+	std::vector<int>			sorted;
+	std::vector<unsigned int>	results;
+
 	if (_v.size() < 2)
 		throw NotEnoughElementsException();
+	sorted = _v;
+	std::sort(sorted.begin(), sorted.end());
+	results.reserve(_N);
+	std::adjacent_difference(sorted.begin(), sorted.end(), std::back_inserter(results));
+	return *std::min_element(results.begin() + 1, results.end());
 }
 
 unsigned int	Span::longestSpan()
@@ -68,4 +76,9 @@ const char* Span::FullCapacityReachedException::what() const throw()
 const char* Span::NotEnoughElementsException::what() const throw()
 {
 	return "Not enough elements found for the operation";
+}
+
+const char* Span::NoSpaceLeftException::what() const throw()
+{
+	return "No space left";
 }
