@@ -4,6 +4,7 @@
 # include <string>
 # include <iostream>
 # include <vector>
+# include <algorithm>
 # include <exception>
 
 class	Span
@@ -11,12 +12,13 @@ class	Span
 	private:
 		unsigned int		_N;
 		std::vector<int>	_v;
-		class FullCapacityReachedException : public std::exception
+		class	FullCapacityReachedException : public std::exception
 		{
-			const char* what() const throw()
-			{
-				return "Full capacity reached";
-			}
+			const char* what() const throw();
+		};
+		class	NotEnoughElementsException : public std::exception
+		{
+			const char* what() const throw();
 		};
 	public:
 		Span();
@@ -24,7 +26,9 @@ class	Span
 		Span(const Span& src);
 		Span& operator=(const Span& rhs);
 		~Span();
-		void	addNumber(int i);
+		void			addNumber(int i);
+		unsigned int	longestSpan();
+		unsigned int	shortestSpan();
 };
 
 #endif
