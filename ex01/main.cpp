@@ -1,13 +1,70 @@
 #include "Span.hpp"
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
+#include <sstream>
+
+void	check_span(int n)
+{
+	std::vector<int> v;
+
+	try
+	{
+		Span	 sp(n);
+		std::ofstream outfile;
+		std::stringstream file_name;
+
+		file_name << n;
+		v.reserve(n);
+		outfile.open((file_name.str() + "_numbers").c_str());
+		for (int i = 0; i < n; ++i)
+			v.push_back(rand() % n - n / 2);
+		for (int i = 0; i < n; ++i)
+		{
+			outfile << v[i] << " | ";
+			if (i != 0 && i % 10 == 0)
+				outfile << std::endl;
+		}
+		outfile.close();
+		try
+		{
+			sp.addNumber(v.begin(), v.end());
+		}
+		catch (const std::exception& e)
+		{
+			std::cerr << "Exception: " << e.what() << std::endl;
+		}
+		try
+		{
+			std::cout << "Shortest span: " << sp.shortestSpan() << std::endl;
+		}
+		catch (const std::exception& e)
+		{
+			std::cerr << "Exception: " << e.what() << std::endl;
+		}
+		try
+		{
+			std::cout << "Longest span: " << sp.longestSpan() << std::endl;
+		}
+		catch (const std::exception& e)
+		{
+			std::cerr << "Exception: " << e.what() << std::endl;
+		}
+		std::cout << std::endl;
+	}
+	catch (const std::exception& e)
+	{
+		std::cerr << "Exception: " << e.what() << std::endl;
+	}
+
+}
 
 int main()
 {
 	std::srand(time(NULL));
-	std::vector<int>	v;
-	v.reserve(10000);
+
 	Span sp = Span(5);
+
 	sp.addNumber(6);
 	sp.addNumber(3);
 	sp.addNumber(17);
@@ -15,13 +72,19 @@ int main()
 	sp.addNumber(11);
 	std::cout << sp.shortestSpan() << std::endl;
 	std::cout << sp.longestSpan() << std::endl;
-	for (int i = 0; i < 10; ++i)
-		v.push_back(rand() % 100);
-	for (int i = 0; i < 10; ++i)
-		std::cout << v[i] << " - ";
+
+	try
+	{
+		sp.addNumber(8);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << "Exception: " << e.what() << std::endl;
+	}
 	std::cout << std::endl;
-	Span sp2(10);
-	sp2.addNumber(v.begin(), v.end());
-	std::cout << sp2.shortestSpan() << std::endl;
-	std::cout << sp2.longestSpan() << std::endl;
+	for (int i = 1; i < 1000000; i *= 10)
+	{
+		std::cout << "With " << i << " numbers:" << std::endl;
+		check_span(i);
+	}
 }

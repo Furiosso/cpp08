@@ -4,14 +4,7 @@ Span::Span() : _N(0) {}
 
 Span::Span(const unsigned int N) : _N(N)
 {
-	try
-	{
-		_v.reserve(_N);
-	}
-	catch (std::exception& e)
-	{
-		std::cout << e.what() << std::endl; 
-	}
+	_v.reserve(_N);
 }
 
 Span::Span(const Span& src) : _N(src._N)
@@ -42,7 +35,7 @@ void	Span::addNumber(int i)
 		throw FullCapacityReachedException();
 }
 
-unsigned int	Span::shortestSpan()
+unsigned int	Span::shortestSpan() const
 {
 	std::vector<int>			sorted;
 	std::vector<unsigned int>	results;
@@ -56,7 +49,7 @@ unsigned int	Span::shortestSpan()
 	return *std::min_element(results.begin() + 1, results.end());
 }
 
-unsigned int	Span::longestSpan()
+unsigned int	Span::longestSpan() const
 {
 	int	max;
 	int min;

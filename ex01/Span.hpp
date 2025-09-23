@@ -32,8 +32,8 @@ class	Span
 		Span& operator=(const Span& rhs);
 		~Span();
 		void			addNumber(int i);
-		unsigned int	longestSpan();
-		unsigned int	shortestSpan();
+		unsigned int	longestSpan() const;
+		unsigned int	shortestSpan() const;
 		template <typename Iter>
 		void			addNumber(Iter begin, Iter end)
 		{
