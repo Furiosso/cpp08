@@ -10,19 +10,20 @@ void	check_span(int n)
 
 	try
 	{
-		Span	 sp(n);
-		std::ofstream outfile;
-		std::stringstream file_name;
+		Span				sp(n);
+		std::ofstream		outfile;
+		std::stringstream	file_name;
+		std::string			command;
 
 		file_name << n;
 		v.reserve(n);
 		outfile.open((file_name.str() + "_numbers").c_str());
 		for (int i = 0; i < n; ++i)
-			v.push_back(rand() % n - n / 2);
+			v.push_back(rand() % (n * 2) - n);
 		for (int i = 0; i < n; ++i)
 		{
-			outfile << v[i] << " | ";
-			if (i != 0 && i % 10 == 0)
+			outfile << v[i];
+			if (i != n - 1)
 				outfile << std::endl;
 		}
 		outfile.close();
@@ -36,7 +37,7 @@ void	check_span(int n)
 		}
 		try
 		{
-			std::cout << "Shortest span: " << sp.shortestSpan() << std::endl;
+			std::cout << "Longest span: " << sp.longestSpan() << std::endl;
 		}
 		catch (const std::exception& e)
 		{
@@ -44,12 +45,17 @@ void	check_span(int n)
 		}
 		try
 		{
-			std::cout << "Longest span: " << sp.longestSpan() << std::endl;
+			std::cout << "Shortest span: " << sp.shortestSpan() << std::endl;
 		}
 		catch (const std::exception& e)
 		{
 			std::cerr << "Exception: " << e.what() << std::endl;
 		}
+		std::cout << std::endl << "SYSTEM CHECK: " << std::endl;
+		command = "< " + file_name.str() + "_numbers sort -n | awk 'BEGIN{minDist="
+		+ file_name.str() +
+		"} NR==1{min=$1; max=$1; next} {d=$1-max; if (d<minDist){minDist=d; a=max; b=$1} max=$1} END{print \"LONGEST SPAN: \" max-min \" BETWEEN \" max \" AND \" min; print \"SHORTEST SPAN: \" minDist \" BETWEEN \" a \" AND \" b}'";
+		system (command.c_str());
 		std::cout << std::endl;
 	}
 	catch (const std::exception& e)
@@ -73,6 +79,7 @@ int main()
 	std::cout << sp.shortestSpan() << std::endl;
 	std::cout << sp.longestSpan() << std::endl;
 
+	std::cout << std::endl << "===OVER LOAD TEST===" << std::endl << "sp.addNumber(6):" << std::endl;
 	try
 	{
 		sp.addNumber(8);
