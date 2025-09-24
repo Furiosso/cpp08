@@ -1,4 +1,5 @@
 #include "MutantStack.hpp"
+#include <iostream>
 
 int main()
 {
@@ -25,6 +26,15 @@ int main()
 		{
 			std::cout << *it << std::endl;
 			++it;
+		}
+		MutantStack<int>::const_iterator itc = mstack.begin();
+		MutantStack<int>::const_iterator itec = mstack.end();
+		++itc;
+		--itc;
+		while (itc != itec)
+		{
+			std::cout << *itc << std::endl;
+			++itc;
 		}
 		std::stack<int> s(mstack);
 		std::cout << s.top() << std::endl;

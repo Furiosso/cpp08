@@ -29,3 +29,15 @@ typename MutantStack<T, C>::iterator	MutantStack<T, C>::end()
 {
 	return this->c.end();
 }
+
+template <typename T, typename C>
+typename MutantStack<T, C>::const_iterator	MutantStack<T, C>::begin() const
+{
+	return this->c.begin();
+}
+
+template <typename T, typename C>
+typename MutantStack<T, C>::const_iterator	MutantStack<T, C>::end() const
+{
+	return this->c.end();
+}
