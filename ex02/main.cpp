@@ -40,6 +40,16 @@ int main()
 		std::cout << s.top() << std::endl;
 		s.pop();
 		std::cout << s.top() << std::endl;
+		mstack.push(32);
+		s = mstack;
+		std::cout << s.top() << std::endl;
+		s.push(99);
+		MutantStack<int> cmstack(s);
+		std::cout << cmstack.top() << std::endl;
+		cmstack.push(123);
+		s.push(123);
+		cmstack = s;
+		std::cout << cmstack.top() << std::endl;
 	}
 	{
 		std::cout << std::endl << "===LIST===" << std::endl;

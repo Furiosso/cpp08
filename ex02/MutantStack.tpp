@@ -8,7 +8,18 @@ template <typename T, typename C>
 MutantStack<T, C>::MutantStack(const MutantStack& src) : std::stack<T, C>(src) {}
 
 template <typename T, typename C>
+MutantStack<T, C>::MutantStack(const std::stack<T, C>& src) : std::stack<T, C>(src) {}
+
+template <typename T, typename C>
 MutantStack<T, C>& MutantStack<T, C>::operator=(const MutantStack& rhs)
+{
+	if (this != &rhs)
+		std::stack<T, C>::operator=(rhs);
+	return *this;
+}
+
+template <typename T, typename C>
+MutantStack<T, C>& MutantStack<T, C>::operator=(const std::stack<T, C>& rhs)
 {
 	if (this != &rhs)
 		std::stack<T, C>::operator=(rhs);

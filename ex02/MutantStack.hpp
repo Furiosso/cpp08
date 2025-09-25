@@ -15,7 +15,9 @@ class	MutantStack : public std::stack<T, C>
 		MutantStack();
 		MutantStack(const C& cont);
 		MutantStack(const MutantStack& src);
+		MutantStack(const std::stack<T, C>& src);
 		MutantStack& operator=(const MutantStack& rhs);
+		MutantStack& operator=(const std::stack<T, C>& rhs);
 		~MutantStack();
 		typename C::iterator		begin();
 		typename C::iterator		end();
