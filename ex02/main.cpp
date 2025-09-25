@@ -1,5 +1,6 @@
 #include "MutantStack.hpp"
 #include <iostream>
+#include <string>
 
 int main()
 {
@@ -211,6 +212,28 @@ int main()
 		std::cout << ms.top() << std::endl;
 		ms.pop();
 		std::cout << ms.top() << std::endl;
+	}
+	{
+		std::cout << "===STRING DEQUE===" << std::endl;
+		MutantStack<std::string> mstack;
+		mstack.push("five");
+		mstack.push("seventeen");
+		std::cout << mstack.top() << std::endl;
+		mstack.pop();
+		std::cout << mstack.size() << std::endl;
+		mstack.push("three");
+		mstack.push("five");
+		mstack.push("sevenhundredthirtyseven");
+		mstack.push("zero");
+		MutantStack<std::string>::iterator it = mstack.begin();
+		MutantStack<std::string>::iterator ite = mstack.end();
+		++it;
+		--it;
+		while (it != ite) {
+			std::cout << *it << std::endl;
+			++it;
+		}
+		std::stack<std::string> s(mstack);
 	}
 	return 0;
 }
