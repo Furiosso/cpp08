@@ -214,7 +214,7 @@ int main()
 		std::cout << ms.top() << std::endl;
 	}
 	{
-		std::cout << "===STRING DEQUE===" << std::endl;
+		std::cout << std::endl << "===STRING DEQUE===" << std::endl;
 		MutantStack<std::string> mstack;
 		mstack.push("five");
 		mstack.push("seventeen");

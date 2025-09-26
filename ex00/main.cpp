@@ -3,8 +3,6 @@
 #include <vector>
 #include <list>
 #include <deque>
-#include <stack>
-#include <queue>
 
 int	main()
 {
